@@ -8,17 +8,17 @@ on:
 
 jobs:
   gemini-chat:
-    # Only run if the comment mentions the bot to save Action minutes
     if: contains(github.event.comment.body, '@gemini-cli')
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
       issues: write
-      checks: write
     steps:
       - uses: actions/checkout@v4
       - name: Run Gemini
         uses: google-github-actions/run-gemini-cli@v0.1.19
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          # This passes your specific comment to Gemini
+          prompt: "You are a helpful coding assistant. Answer the user's request contextually."
